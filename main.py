@@ -24,7 +24,7 @@ ADMIN_CHAT_ID = int(os.environ.get("ADMIN_CHAT_ID", 8053042225))
 
 UPI_ID = "BHARATPE.8R0I1G1N4X31943@fbpe"
 REFERRAL_REWARD_POINTS = 3
-REQUIRED_REFERRALS = 12  # Yahan 5 se badha kar 12 kar diya gaya hai
+REQUIRED_REFERRALS = 12
 DIRECT_PAY_AMOUNT = 99.0
 
 MINI_APP_URL = "https://rkg26176.github.io/gbx_learning_bot/"
@@ -618,7 +618,7 @@ def claim_referral_unlock(call):
   if int(user_data.get("panel_unlocked", 0)) == 1 or user_id in PERMANENT_VIP_USERS:
     bot.answer_callback_query(
         call.id,
-        "✅ Aapka Web All Batches pahle se unlocked hai!",
+        "✅ Aapka Web Panel pehle se unlocked hai!",
         show_alert=True,
     )
     return
@@ -650,42 +650,56 @@ def handle_pay_menu(call):
   user_id = call.from_user.id
   user_states[user_id] = None
 
-  upi_url = f"upi://pay?pa={UPI_ID}&pn=GBX_Panel&am={DIRECT_PAY_AMOUNT}&cu=INR"
-  qr = qrcode.QRCode(box_size=10, border=2)
-  qr.add_data(upi_url)
-  qr.make(fit=True)
-  img = qr.make_image(fill_color="black", back_color="white")
-
-  buffer = io.BytesIO()
-  img.save(buffer, format="PNG")
-  buffer.seek(0)
-
-  caption_text = (
-      "💳 **Unlock Web Panel via Direct Payment**\n\n"
-      f"💰 **Amount:** `₹{DIRECT_PAY_AMOUNT}`\n"
-      f"📍 **UPI ID:** `{UPI_ID}`\n\n"
-      "📲 **Instructions:**\n"
-      "1. Upar QR Code ko scan karke ₹99 ki exact payment karein.\n"
-      "2. Payment hone ke baad niche **'📝 Submit UTR'** button par click karke apna 12-digit UTR Number bhejein."
-  )
   try:
-    bot.delete_message(call.message.chat.id, call.message.message_id)
+    bot.answer_callback_query(call.id, "Generating QR Code...")
   except Exception:
     pass
 
-  markup = InlineKeyboardMarkup(row_width=1)
-  markup.add(
-      InlineKeyboardButton(text="📝 Submit UTR", callback_data="start_utr_input"),
-      InlineKeyboardButton(text="⬅️ Back", callback_data="back_home"),
-  )
+  try:
+    upi_url = f"upi://pay?pa={UPI_ID}&pn=GBX_Learning_Hub&am={DIRECT_PAY_AMOUNT}&cu=INR"
+    qr = qrcode.QRCode(box_size=10, border=2)
+    qr.add_data(upi_url)
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="black", back_color="white")
 
-  bot.send_photo(
-      call.message.chat.id,
-      photo=buffer,
-      caption=caption_text,
-      reply_markup=markup,
-      parse_mode="Markdown",
-  )
+    buffer = io.BytesIO()
+    img.save(buffer, format="PNG")
+    buffer.seek(0)
+
+    caption_text = (
+        "💳 **Unlock Web Panel via Direct Payment**\n\n"
+        f"💰 **Amount:** `₹{DIRECT_PAY_AMOUNT}`\n"
+        f"📍 **UPI ID:** `{UPI_ID}`\n\n"
+        "📲 **Instructions:**\n"
+        "1. Upar QR Code ko scan karke ₹99 ki exact payment karein.\n"
+        "2. Payment hone ke baad niche **'📝 Submit UTR'** button par click karke apna 12-digit UTR Number bhejein."
+    )
+    
+    try:
+      bot.delete_message(call.message.chat.id, call.message.message_id)
+    except Exception:
+      pass
+
+    markup = InlineKeyboardMarkup(row_width=1)
+    markup.add(
+        InlineKeyboardButton(text="📝 Submit UTR", callback_data="start_utr_input"),
+        InlineKeyboardButton(text="⬅️ Back", callback_data="back_home"),
+    )
+
+    bot.send_photo(
+        call.message.chat.id,
+        photo=buffer,
+        caption=caption_text,
+        reply_markup=markup,
+        parse_mode="Markdown",
+    )
+  except Exception as e:
+    print("QR Generation Error:", e)
+    bot.send_message(
+        call.message.chat.id,
+        f"❌ QR code generate karne mein error aaya. Aap direct is UPI ID par payment kar sakte hain:\n`{UPI_ID}`",
+        parse_mode="Markdown"
+    )
 
 
 @bot.callback_query_handler(func=lambda call: call.data == "start_utr_input")
@@ -695,7 +709,11 @@ def handle_start_utr(call):
   user_id = call.from_user.id
   user_states[user_id] = "waiting_for_utr"
 
-  bot.answer_callback_query(call.id, "Kripya ab apna 12-digit UTR number type karke bhejein!")
+  try:
+    bot.answer_callback_query(call.id, "Kripya ab apna 12-digit UTR number type karke bhejein!")
+  except Exception:
+    pass
+    
   try:
     bot.send_message(
         call.message.chat.id,
