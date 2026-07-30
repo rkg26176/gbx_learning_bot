@@ -290,25 +290,25 @@ def show_main_menu(chat_id, user_name):
   if panel_unlocked == 1:
     text = (
         f"✅ **Welcome back to GBX Learning Hub, {user_name}!**\n\n"
-        "🎉 Aapka Web Panel pehle se **Unlocked** hai! Niche diye gaye button se apna panel open karein 👇"
+        "🎉 Aapka All Batches pehle se **Unlocked** hai! Niche diye gaye button se apna batches open karein 👇"
     )
     markup.add(
         InlineKeyboardButton(
-            text="🌐 Open Web Mini App Panel",
+            text="🌐 Open Mini App All Batches",
             web_app=WebAppInfo(url=MINI_APP_URL),
         )
     )
   else:
     text = (
         f"✅ **Welcome to GBX Learning Hub, {user_name}!**\n\n"
-        f"Congratulations! Aapko ALL BATCHS ka access lene ke liye niche options mil rahe hain 👇"
+        f"Congratulations! Aapko All Batches ka access lene ke liye niche options mil rahe hain 👇"
     )
     markup.add(
         InlineKeyboardButton(
-            text=f"👥 {REQUIRED_REFERRALS} Refer to Unlock ALL BATCHS", callback_data="menu_refer"
+            text=f"👥 {REQUIRED_REFERRALS} Refer to Unlock All Batches", callback_data="menu_refer"
         ),
         InlineKeyboardButton(
-            text="💳 ₹99 Pay to Unlock ALL BATCHS", callback_data="menu_pay"
+            text="💳 ₹99 Pay to Unlock All Batches", callback_data="menu_pay"
         ),
     )
 
@@ -468,7 +468,7 @@ def access_command(message):
   
   bot.send_message(
       message.chat.id, 
-      "⚙️ **VIP Access Control Panel**\n\nNiche diye gaye button se select karein ki aap kya karna chahte hain:",
+      "⚙️ **VIP Access Control Dashboard**\n\nNiche diye gaye button se select karein ki aap kya karna chahte hain:",
       reply_markup=markup
   )
 
@@ -572,18 +572,18 @@ def handle_refer_menu(call):
   ref_link = f"https://t.me/{bot_username}?start={user_id}"
 
   text = (
-      "👥 **Referral Panel:**\n\n"
+      "👥 **Referral Batches Menu:**\n\n"
       f"⭐ Total Points: `{points}`\n"
       f"👥 Total Referrals: `{refs}/{REQUIRED_REFERRALS}`\n\n"
       f"🔗 **Your Referral Link:**\n`{ref_link}`\n\n"
-      f"ℹ️ *Note: Jaise hi aapke {REQUIRED_REFERRALS} refer ho jayenge, aap niche button daba kar panel unlock kar sakte hain!*"
+      f"ℹ️ *Note: Jaise hi aapke {REQUIRED_REFERRALS} refer ho jayenge, aap niche button daba kar All Batches unlock kar sakte hain!*"
   )
 
   markup = InlineKeyboardMarkup()
   if panel_unlocked == 1:
     markup.add(
         InlineKeyboardButton(
-            text="🌐 Open Web Mini App Panel",
+            text="🌐 Open Mini App All Batches",
             web_app=WebAppInfo(url=MINI_APP_URL),
         )
     )
@@ -618,7 +618,7 @@ def claim_referral_unlock(call):
   if int(user_data.get("panel_unlocked", 0)) == 1 or user_id in PERMANENT_VIP_USERS:
     bot.answer_callback_query(
         call.id,
-        "✅ Aapka Web Panel pehle se unlocked hai!",
+        "✅ Aapka All Batches pehle se unlocked hai!",
         show_alert=True,
     )
     return
@@ -627,7 +627,7 @@ def claim_referral_unlock(call):
     update_user_data(user_id, "panel_unlocked", 1)
     bot.answer_callback_query(
         call.id,
-        "🎉 Congratulations! Web Panel successfully unlocked!",
+        "🎉 Congratulations! All Batches successfully unlocked!",
         show_alert=True,
     )
     show_main_menu(call.message.chat.id, call.from_user.first_name)
@@ -667,7 +667,7 @@ def handle_pay_menu(call):
     buffer.seek(0)
 
     caption_text = (
-        "💳 **Unlock Web Panel via Direct Payment**\n\n"
+        "💳 **Unlock All Batches via Direct Payment**\n\n"
         f"💰 **Amount:** `₹{DIRECT_PAY_AMOUNT}`\n"
         f"📍 **UPI ID:** `{UPI_ID}`\n\n"
         "📲 **Instructions:**\n"
@@ -777,8 +777,8 @@ def handle_all_messages(message):
       bot.reply_to(message, f"✅ Success! User `{target_id}` ko VIP / Mini Web access de diya gaya hai.", parse_mode="Markdown")
       try:
         markup = InlineKeyboardMarkup()
-        markup.add(InlineKeyboardButton(text="🌐 Open Web Mini App Panel", web_app=WebAppInfo(url=MINI_APP_URL)))
-        bot.send_message(target_id, "🎉 **Aapko Admin dwara VIP Mini Web Panel ka access de diya gaya hai!** Niche button se open karein 👇", reply_markup=markup, parse_mode="Markdown")
+        markup.add(InlineKeyboardButton(text="🌐 Open Mini App All Batches", web_app=WebAppInfo(url=MINI_APP_URL)))
+        bot.send_message(target_id, "🎉 **Aapko Admin dwara VIP Mini Web All Batches ka access de diya gaya hai!** Niche button se open karein 👇", reply_markup=markup, parse_mode="Markdown")
       except Exception:
         pass
     except ValueError:
@@ -828,7 +828,7 @@ def handle_all_messages(message):
     try:
       bot.send_message(
           ADMIN_CHAT_ID,
-          f"📥 **Panel Payment Request!**\nUser ID: `{user_id}`\nAmount: ₹{DIRECT_PAY_AMOUNT}\nUTR: `{text}`",
+          f"📥 **All Batches Payment Request!**\nUser ID: `{user_id}`\nAmount: ₹{DIRECT_PAY_AMOUNT}\nUTR: `{text}`",
           reply_markup=markup,
           parse_mode="Markdown",
       )
@@ -860,7 +860,7 @@ def admin_action(call):
     
     try:
       bot.edit_message_text(
-          f"✅ Approved! Web Panel unlocked for User `{target}`.",
+          f"✅ Approved! All Batches unlocked for User `{target}`.",
           call.message.chat.id,
           call.message.message_id,
       )
@@ -870,13 +870,13 @@ def admin_action(call):
       markup = InlineKeyboardMarkup()
       markup.add(
           InlineKeyboardButton(
-              text="🌐 Open Web Mini App Panel",
+              text="🌐 Open Mini App All Batches",
               web_app=WebAppInfo(url=MINI_APP_URL),
           )
       )
       bot.send_message(
           target,
-          "🎉 **Payment Verified Successfully!**\nAapka Web Mini App Panel lifetime ke liye unlock kar diya gaya hai 👇",
+          "🎉 **Payment Verified Successfully!**\nAapka Mini App All Batches lifetime ke liye unlock kar diya gaya hai 👇",
           reply_markup=markup,
           parse_mode="Markdown",
       )
@@ -903,7 +903,7 @@ def admin_action(call):
 def set_bot_commands(bot_instance):
   commands = [
       BotCommand("start", "Start the bot"),
-      BotCommand("panel", "Open Web Panel / Unlock Menu"),
+      BotCommand("panel", "Open All Batches / Unlock Menu"),
       BotCommand("admin", "Open Admin Master Dashboard"),
       BotCommand("userlist", "View normal and VIP users list")
   ]
