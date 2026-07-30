@@ -90,11 +90,12 @@
         .panel-card:hover::before { opacity: 1; }
         
         .card-icon-box {
-            width: 60px; height: 60px; border-radius: 16px; display: flex; align-items: center; justify-content: center;
+            width: 60px; height: 60px; border-radius: 16px; overflow: hidden; display: flex; align-items: center; justify-content: center;
             margin-bottom: 14px; background: rgba(255, 255, 255, 0.04); 
             border: 1px solid rgba(255, 255, 255, 0.08); 
             box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.05);
         }
+        .card-icon-box img { width: 100%; height: 100%; object-fit: cover; }
         
         .card-title { font-size: 15px; font-weight: 600; color: #f1f5f9; letter-spacing: 0.3px; }
 
@@ -117,7 +118,6 @@
 
     <div class="container" id="mainContent">
         <div class="logo-container">
-            <!-- Yahan logo.png set kar diya gaya hai -->
             <img src="logo.png" alt="Logo">
         </div>
 
@@ -132,7 +132,7 @@
             <!-- PW -->
             <div class="panel-card" onclick="openLink('https://studypanda.xyz/batches')">
                 <div class="card-icon-box">
-                    <span style="font-size: 20px; font-weight: 800; color: #38bdf8; letter-spacing: 1px;">PW</span>
+                    <img src="pw.png" alt="PW">
                 </div>
                 <div class="card-title">Physics Wallah</div>
             </div>
@@ -140,7 +140,7 @@
             <!-- Next Toppers -->
             <div class="panel-card" onclick="openLink('https://studypanda.site/nexttoppers')">
                 <div class="card-icon-box">
-                    <span style="font-size: 20px; font-weight: 800; color: #10b981; letter-spacing: 1px;">NT</span>
+                    <img src="nexttoppers.png" alt="Next Toppers">
                 </div>
                 <div class="card-title">Next Toppers</div>
             </div>
@@ -148,7 +148,7 @@
             <!-- Mission JEET -->
             <div class="panel-card" onclick="openLink('https://studypanda.site/missionjeet')">
                 <div class="card-icon-box">
-                    <span style="font-size: 20px; font-weight: 800; color: #ff5722; letter-spacing: 1px;">MJ</span>
+                    <img src="missionjeet.png" alt="Mission JEET">
                 </div>
                 <div class="card-title">Mission JEET</div>
             </div>
@@ -156,7 +156,7 @@
             <!-- RWA -->
             <div class="panel-card" onclick="openLink('https://studypanda.site/rwa')">
                 <div class="card-icon-box">
-                    <span style="font-size: 20px; font-weight: 800; color: #f472b6; letter-spacing: 1px;">RWA</span>
+                    <img src="rwa.jpeg" alt="RWA">
                 </div>
                 <div class="card-title">RWA</div>
             </div>
