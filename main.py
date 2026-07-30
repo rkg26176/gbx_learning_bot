@@ -16,7 +16,7 @@ from telebot.types import (
     BotCommand,
 )
 
-BOT_NAME = "GBX PANNEL BOT"
+BOT_NAME = "GBX LEARNING HUB"
 BOT_TOKEN = os.environ.get(
     "BOT_TOKEN", "8069167650:AAGyWefpp8zfjDFufyaPnbc6rUrs-erTlfc"
 )
@@ -24,7 +24,7 @@ ADMIN_CHAT_ID = int(os.environ.get("ADMIN_CHAT_ID", 8053042225))
 
 UPI_ID = "BHARATPE.8R0I1G1N4X31943@fbpe"
 REFERRAL_REWARD_POINTS = 3
-REQUIRED_REFERRALS = 5
+REQUIRED_REFERRALS = 12  # Yahan 5 se badha kar 12 kar diya gaya hai
 DIRECT_PAY_AMOUNT = 99.0
 
 MINI_APP_URL = "https://rkg26176.github.io/gbx_learning_bot/"
@@ -236,7 +236,7 @@ CHANNELS = {
 
 @app.route("/")
 def home():
-  return "GBX Panel Bot Active!"
+  return "GBX Learning Hub Bot Active!"
 
 
 def get_user_status_map(user_id):
@@ -289,7 +289,7 @@ def show_main_menu(chat_id, user_name):
   
   if panel_unlocked == 1:
     text = (
-        f"✅ **Welcome back to GBX Pannel Bot, {user_name}!**\n\n"
+        f"✅ **Welcome back to GBX Learning Hub, {user_name}!**\n\n"
         "🎉 Aapka Web Panel pehle se **Unlocked** hai! Niche diye gaye button se apna panel open karein 👇"
     )
     markup.add(
@@ -300,15 +300,15 @@ def show_main_menu(chat_id, user_name):
     )
   else:
     text = (
-        f"✅ **Welcome to GBX Pannel Bot, {user_name}!**\n\n"
-        "Congratulations! Aapko Web Panel का access lene ke liye niche options mil rahe hain 👇"
+        f"✅ **Welcome to GBX Learning Hub, {user_name}!**\n\n"
+        f"Congratulations! Aapko ALL BATCHS ka access lene ke liye niche options mil rahe hain 👇"
     )
     markup.add(
         InlineKeyboardButton(
-            text="👥 5 Refer to Unlock Web Panel", callback_data="menu_refer"
+            text=f"👥 {REQUIRED_REFERRALS} Refer to Unlock ALL BATCHS", callback_data="menu_refer"
         ),
         InlineKeyboardButton(
-            text="💳 ₹99 Pay to Unlock Web Panel", callback_data="menu_pay"
+            text="💳 ₹99 Pay to Unlock ALL BATCHS", callback_data="menu_pay"
         ),
     )
 
@@ -316,7 +316,7 @@ def show_main_menu(chat_id, user_name):
 
 
 @bot.message_handler(commands=["start"])
-def start_command(message):
+def send_welcome(message):
   if message.chat.type != "private":
     return
   user_id = message.from_user.id
@@ -576,7 +576,7 @@ def handle_refer_menu(call):
       f"⭐ Total Points: `{points}`\n"
       f"👥 Total Referrals: `{refs}/{REQUIRED_REFERRALS}`\n\n"
       f"🔗 **Your Referral Link:**\n`{ref_link}`\n\n"
-      "ℹ️ *Note: 1 Refer par 3 Points milte hain. Jaise hi aapke 5 refer ho jayenge, aap niche button daba kar panel unlock kar sakte hain!*"
+      f"ℹ️ *Note: Jaise hi aapke {REQUIRED_REFERRALS} refer ho jayenge, aap niche button daba kar panel unlock kar sakte hain!*"
   )
 
   markup = InlineKeyboardMarkup()
@@ -590,7 +590,7 @@ def handle_refer_menu(call):
   else:
     markup.add(
         InlineKeyboardButton(
-            text="🔓 Claim 5 Referrals Unlock", callback_data="claim_referral"
+            text=f"🔓 Claim {REQUIRED_REFERRALS} Referrals Unlock", callback_data="claim_referral"
         )
     )
   markup.add(InlineKeyboardButton(text="⬅️ Back", callback_data="back_home"))
@@ -618,7 +618,7 @@ def claim_referral_unlock(call):
   if int(user_data.get("panel_unlocked", 0)) == 1 or user_id in PERMANENT_VIP_USERS:
     bot.answer_callback_query(
         call.id,
-        "✅ Aapka Web Panel pehle se unlocked hai!",
+        "✅ Aapka Web All Batches pahle se unlocked hai!",
         show_alert=True,
     )
     return
