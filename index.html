@@ -13,93 +13,116 @@
             -webkit-touch-callout: none;
         }
         body {
-            background-color: #07090e; color: #ffffff;
+            background-color: #04060a; color: #ffffff;
             min-height: 100vh; display: flex; flex-direction: column;
             align-items: center; justify-content: flex-start; overflow-x: hidden;
             padding: 30px 15px;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(14, 165, 233, 0.08) 0%, transparent 40%);
+                radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(14, 165, 233, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(52, 211, 153, 0.05) 0%, transparent 60%);
         }
         #lockScreen {
             display: none; flex-direction: column; align-items: center;
             justify-content: center; text-align: center; padding: 20px;
             width: 100%; height: 100vh; position: fixed; top: 0; left: 0;
-            background-color: #07090e; z-index: 99999;
+            background-color: #04060a; z-index: 99999;
         }
-        .lock-icon { font-size: 60px; margin-bottom: 20px; }
-        .lock-title { font-size: 24px; font-weight: 700; margin-bottom: 10px; color: #ffffff; }
+        .lock-icon { font-size: 60px; margin-bottom: 20px; filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.6)); }
+        .lock-title { font-size: 24px; font-weight: 700; margin-bottom: 10px; color: #ffffff; text-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
         .lock-desc { font-size: 14px; color: #94a3b8; margin-bottom: 30px; max-width: 300px; line-height: 1.5; }
         .bot-btn {
             background: linear-gradient(135deg, #0ea5e9, #2563eb); color: #ffffff; padding: 14px 28px;
             border-radius: 14px; font-size: 16px; font-weight: 600; text-decoration: none;
             display: inline-flex; align-items: center; gap: 10px;
-            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.4);
+            box-shadow: 0 0 25px rgba(14, 165, 233, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(14, 165, 233, 0.8);
+            transition: all 0.3s ease;
+        }
+        .bot-btn:hover {
+            box-shadow: 0 0 35px rgba(14, 165, 233, 0.9), inset 0 0 15px rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
         }
         #loader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #07090e; display: flex; flex-direction: column;
+            background-color: #04060a; display: flex; flex-direction: column;
             justify-content: center; align-items: center; z-index: 9999;
             transition: opacity 0.5s ease;
         }
         .spinner {
-            width: 50px; height: 50px; border: 4px solid rgba(255, 255, 255, 0.05);
-            border-top: 4px solid #10b981; border-radius: 50%;
+            width: 55px; height: 55px; border: 4px solid rgba(16, 185, 129, 0.1);
+            border-top: 4px solid #10b981; border-right: 4px solid #34d399; border-radius: 50%;
             animation: spin 1s linear infinite; margin-bottom: 20px;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.6), inset 0 0 15px rgba(16, 185, 129, 0.4);
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .loader-text { color: #94a3b8; font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; }
+        .loader-text { color: #34d399; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 0 10px rgba(52, 211, 153, 0.6); font-weight: 600; }
         
         .container { width: 100%; max-width: 480px; display: none; flex-direction: column; align-items: center; text-align: center; }
         
         .logo-container {
-            width: 90px; height: 90px; border-radius: 50%; overflow: hidden;
+            width: 95px; height: 95px; border-radius: 50%; overflow: hidden;
             border: 2px solid #10b981; 
-            box-shadow: 0 0 25px rgba(16, 185, 129, 0.4), inset 0 0 10px rgba(16, 185, 129, 0.2);
-            margin-bottom: 20px; background-color: #0f172a; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 35px rgba(16, 185, 129, 0.7), inset 0 0 15px rgba(16, 185, 129, 0.5);
+            margin-bottom: 20px; background-color: #0b1329; display: flex; align-items: center; justify-content: center;
+            animation: pulseGlow 3s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 25px rgba(16, 185, 129, 0.5), inset 0 0 10px rgba(16, 185, 129, 0.3); }
+            100% { box-shadow: 0 0 45px rgba(16, 185, 129, 0.9), inset 0 0 20px rgba(16, 185, 129, 0.7); }
         }
         .logo-container img { width: 100%; height: 100%; object-fit: cover; }
 
-        .welcome-title { font-size: 28px; font-weight: 800; line-height: 1.2; margin-bottom: 10px; letter-spacing: -0.5px; }
-        .welcome-title span { background: linear-gradient(135deg, #10b981, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .welcome-title { font-size: 28px; font-weight: 800; line-height: 1.2; margin-bottom: 10px; letter-spacing: -0.5px; text-shadow: 0 0 20px rgba(255, 255, 255, 0.2); }
+        .welcome-title span { background: linear-gradient(135deg, #10b981, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.6)); }
         
         .welcome-desc { font-size: 13px; color: #94a3b8; margin-bottom: 30px; max-width: 350px; line-height: 1.6; }
 
         .cards-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 18px; width: 100%;
         }
         .panel-card {
-            background: linear-gradient(145deg, #0f172a, #0b1329); 
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: linear-gradient(145deg, #0d1527, #070d1a); 
+            border: 1px solid rgba(16, 185, 129, 0.25);
             border-radius: 20px; padding: 22px 15px; cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); 
             display: flex; flex-direction: column; align-items: center; text-align: center;
             position: relative; overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(16, 185, 129, 0.04), 0 0 15px rgba(16, 185, 129, 0.1);
+        }
+        .panel-card.full-width {
+            grid-column: span 2;
         }
         .panel-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.5), transparent);
-            opacity: 0; transition: opacity 0.3s ease;
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, transparent, #10b981, #34d399, transparent);
+            box-shadow: 0 0 15px #10b981;
+            opacity: 0.7; transition: opacity 0.3s ease;
         }
         .panel-card:hover { 
-            transform: translateY(-4px); 
-            border-color: rgba(16, 185, 129, 0.3); 
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(16, 185, 129, 0.1); 
+            transform: translateY(-6px); 
+            border-color: rgba(52, 211, 153, 0.8); 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 30px rgba(16, 185, 129, 0.4), inset 0 0 20px rgba(16, 185, 129, 0.15); 
         }
-        .panel-card:hover::before { opacity: 1; }
+        .panel-card:hover::before { opacity: 1; box-shadow: 0 0 25px #34d399; }
         
         .card-icon-box {
             width: 60px; height: 60px; border-radius: 16px; overflow: hidden; display: flex; align-items: center; justify-content: center;
-            margin-bottom: 14px; background: rgba(255, 255, 255, 0.04); 
-            border: 1px solid rgba(255, 255, 255, 0.08); 
-            box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.05);
+            margin-bottom: 14px; background: rgba(16, 185, 129, 0.05); 
+            border: 1px solid rgba(16, 185, 129, 0.3); 
+            box-shadow: inset 0 0 10px rgba(16, 185, 129, 0.2), 0 0 10px rgba(16, 185, 129, 0.2);
+            transition: all 0.3s ease;
+        }
+        .panel-card:hover .card-icon-box {
+            border-color: #34d399;
+            box-shadow: inset 0 0 15px rgba(52, 211, 153, 0.4), 0 0 20px rgba(52, 211, 153, 0.5);
+            transform: scale(1.05);
         }
         .card-icon-box img { width: 100%; height: 100%; object-fit: cover; }
         
-        .card-title { font-size: 15px; font-weight: 600; color: #f1f5f9; letter-spacing: 0.3px; }
+        .card-title { font-size: 15px; font-weight: 600; color: #f1f5f9; letter-spacing: 0.3px; text-shadow: 0 0 8px rgba(255, 255, 255, 0.2); }
 
-        .footer { text-align: center; padding: 35px 0 10px; font-size: 11px; color: #64748b; letter-spacing: 1.5px; font-weight: 700; text-transform: uppercase; width: 100%; }
+        .footer { text-align: center; padding: 35px 0 10px; font-size: 11px; color: #34d399; letter-spacing: 2px; font-weight: 700; text-transform: uppercase; width: 100%; text-shadow: 0 0 12px rgba(52, 211, 153, 0.5); }
     </style>
 </head>
 <body>
@@ -131,7 +154,7 @@
 
         <div class="cards-grid">
             <!-- PW -->
-            <div class="panel-card" onclick="openLink('https://studypanda.xyz/batches')">
+            <div class="panel-card" onclick="openLink('https://pw.studypanda.live/auth')">
                 <div class="card-icon-box">
                     <img src="images.png" alt="PW">
                 </div>
@@ -139,7 +162,7 @@
             </div>
 
             <!-- Next Toppers -->
-            <div class="panel-card" onclick="openLink('https://studypanda.site/nexttoppers')">
+            <div class="panel-card" onclick="openLink('https://studypanda.live/nexttoppers')">
                 <div class="card-icon-box">
                     <img src="unnamed.png" alt="Next Toppers">
                 </div>
@@ -147,7 +170,7 @@
             </div>
 
             <!-- Mission JEET -->
-            <div class="panel-card" onclick="openLink('https://studypanda.site/missionjeet')">
+            <div class="panel-card" onclick="openLink('https://studypanda.live/missionjeet')">
                 <div class="card-icon-box">
                     <img src="images (1).png" alt="Mission JEET">
                 </div>
@@ -155,16 +178,24 @@
             </div>
 
             <!-- RWA -->
-            <div class="panel-card" onclick="openLink('https://studypanda.site/rwa')">
+            <div class="panel-card" onclick="openLink('https://rwa.studypanda.live/')">
                 <div class="card-icon-box">
                     <img src="b936d8fb6f06c5a6b614ad2274623fe1bb2c0e42f1e8758b426acc8f425175c9_600.jpeg" alt="RWA">
                 </div>
                 <div class="card-title">RWA</div>
             </div>
+
+            <!-- Unacademy -->
+            <div class="panel-card full-width" onclick="openLink('https://studypanda.live/un')">
+                <div class="card-icon-box">
+                    <img src="vxvagvw.jpg" alt="Unacademy">
+                </div>
+                <div class="card-title">Unacademy</div>
+            </div>
         </div>
 
         <div class="footer">
-            Powered by GBX Learning Hub
+            Powered by GBX
         </div>
     </div>
 
